@@ -2,7 +2,7 @@
 
 # Eden Bot
 
-> Multipurpose WhatsApp bot using wa-automate-nodejs library!
+> Multipurpose WhatsApp bot using Baileys library!
 >
 >
 
