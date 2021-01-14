@@ -1,7 +1,7 @@
-let handler = async (m, { conn, text }) => {
-  conn.reply(m.chat, `
+let handler = async(m, { conn, text }) => {
+    conn.reply(m.chat, `
 *Pertanyaan:* ${m.text}
-*Jawaban:* ${pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin'])}
+*Jawaban:* ${pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin','Saya Yakin','Itu Mungkin','Tidak bisa dipercaya'])}
 `.trim(), m)
 }
 handler.help = ['apakah <teks>?']
@@ -22,6 +22,5 @@ handler.fail = null
 module.exports = handler
 
 function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)]
+    return list[Math.floor(Math.random() * list.length)]
 }
-
