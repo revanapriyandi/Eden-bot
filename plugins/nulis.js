@@ -52,7 +52,7 @@ let handler = async(m, { conn, args }) => {
             conn.sendFile(m.chat, outputPath, 'nulis.jpg', 'Nih bro')
         })
 }
-handler.help = ['n'].map(v => v + 'ulis <teks>')
+handler.help = ['n'].map(v => v + 'ulis <teks>  [RUSAK]')
 handler.tags = ['tools']
 handler.command = /^nulis$/i
 handler.owner = false
