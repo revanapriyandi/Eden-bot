@@ -4,11 +4,11 @@ let handler = async(m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, 'Uhm... urlnya mana?', m)
     conn.reply(m.chat, 'Tunggu bentar ya :)', m)
     new Promise((resolve, reject) => {
-        axios.get(`https://arugaz.my.id/api/media/twvid?url=` + text)
+        axios.get(`https://arugaz.my.id/api/media/twimg?url=` + text)
             .then((res) => {
                 dl_link = res.data.result.videos
                     // conn.reply(m.chat, `*Link:* ${dl_link} `, m)
-                conn.sendFile(m.chat, dl_link, 'video.mp4', `Nih om :3\n\n\n*Link:* ${dl_link}`, m)
+                conn.sendFile(m.chat, dl_link, 'img', `Nih om :3\n\n\n*Link:* ${dl_link}`, m)
 
             })
             .catch(reject)
@@ -16,9 +16,9 @@ let handler = async(m, { conn, text }) => {
 
 }
 
-handler.help = ['mp4', 'a'].map(v => 'twitter' + v + ' <url>')
+handler.help = ['img', 'i'].map(v => 'twitter' + v + ' <url>')
 handler.tags = ['downloader']
-handler.command = /^tw(a|mp4)$/i
+handler.command = /^tw(i|img)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false
