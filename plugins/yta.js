@@ -7,12 +7,12 @@ let handler = async(m, { conn, args, isPrems, isOwner }) => {
     let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < filesize
     conn.sendFile(m.chat, thumb, 'thumbnail.jpg', `
 *Title:* ${title}
-*Filesize:* ${filesizeF}
+*Filesize:* ${filesize}
 *${isLimit ? 'Pakai ': ''}Link:* ${dl_link}
 `.trim(), m)
     if (!isLimit) conn.sendFile(m.chat, dl_link, 'video.mp4', `
 *Title:* ${title}
-*Filesize:* ${filesizeF}
+*Filesize:* ${filesize}
 `.trim(), m)
 }
 handler.help = ['mp3', 'a'].map(v => 'yt' + v + ' <url>')
