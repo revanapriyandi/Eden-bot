@@ -16,4 +16,4 @@ handler.botAdmin = true
 
 handler.fail = null
 
-module.exports =
+module.exports = handler
