@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 let handler = async(m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, 'Silahkan masukan parameter text', m)
 
