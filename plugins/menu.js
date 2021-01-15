@@ -5,7 +5,8 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
             let name = conn.getName(m.sender)
             let d = new Date
             let locale = 'id'
-            let weton = ['Pon', 'Wage', 'Kliwon', 'Legi', 'Pahing'][Math.floor(d / 84600000) % 5]
+            let gmt = new Date(0).getTime() - new Date('1 January 1970').getTime()
+            let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(((d * 1) + gmt) / 84600000) % 5]
             let week = d.toLocaleDateString(locale, { weekday: 'long' })
             let date = d.toLocaleDateString(locale, {
                 day: 'numeric',
@@ -17,8 +18,8 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
                 minute: 'numeric',
                 second: 'numeric'
             })
-            let _uptime = new Date(new Date - global.timestamp.start)
-            let uptime = ['getHours', 'getMinutes', 'getSeconds'].map(method => _uptime[method]().toString().padStart(2, 0)).join `:`
+            let _uptime = process.uptime() * 1000
+            let uptime = clockString(_uptime)
             let tags = {
                 'main': 'Main',
                 'xp': 'Exp & Limit',
@@ -31,6 +32,7 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
                 'group': 'Group',
                 'downloader': 'Downloader',
                 'tools': 'Tools',
+                'game': 'Game',
                 'jadibot': 'Jadi Bot',
                 'owner': 'Owner',
                 'host': 'Host',
@@ -58,7 +60,7 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
                         if (menu.help) groups[tag].push(menu)
             }
             conn.menu = conn.menu ? conn.menu : {}
-            let before = conn.menu.before || `${conn.getName(conn.user.jid)} • Bot\n\nHai, %name!\n*%exp XP*\n*%limit Limit*\n*%week %weton, %date*\n*%time*\n%readmore`
+            let before = conn.menu.before || `${conn.getName(conn.user.jid)} • Bot\n\nHai, %name!\n*%exp XP*\n*%limit Limit*\n*%week %weton, %date*\n*%time*\n_Uptime: %uptime_\n%readmore`
             let header = conn.menu.header || '╭─「 %category 」'
             let body = conn.menu.body || '│ • %cmd%islimit'
             let footer = conn.menu.footer || '╰────\n'
@@ -72,10 +74,12 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
                 }
                 _text += footer + '\n'
             }
+            _text += after
             text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
             let replace = {
                 '%': '%',
                 p: _p,
+                uptime,
                 exp,
                 limit,
                 name,
@@ -110,27 +114,10 @@ module.exports = handler
 
 const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
-/*                                                                                                     ╭─「 𝗠𝗲𝗱𝗶𝗮 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀 」
-│ • #memes                                                                                           │ • #asupan ⚡
-│ • #ajg
-│ • #bcl                                                                                             │ • #koceng
-│ • #pokemon                                                                                         ╰────
 
-╭─「 𝗪𝗶𝗯𝘂 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀 」                                                                                │ • #loli
-│ • #shota ⚡                                                                                        │ • #waifu
-│ • #hentai ⚡
-│ • #husbu                                                                                           │ • #nekoNime ⚡
-│ • #randomBlowjob ⚡
-│ • #randomCry ⚡
-│ • #randomHug ⚡                                                                                    │ • #randomKiss ⚡
-│ • #malAnime
-│ • #malCharacter
-│ • #whatAnime
-╰────
-╭─「 𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀 」
-│ • #infoGempa                                                                                       │ • #cuaca                                                                                           │ • #covidIndo
-│ • #checkIP ⚡
-╰────
-╭─「 𝗢𝘁𝗵𝗲𝗿 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀 」                                                                               │ • #artiNama
-│ • #artiMimpi ⚡                                                                                    │ • #artiZodiak ⚡                                                                                   │ • #ramalPasangan                                                                                   │ • #nomorHoki)
-*/
+function clockString(ms) {
+  let h = Math.floor(ms / 3600000)
+  let m = Math.floor(ms / 60000) % 60
+  let s = Math.floor(ms / 1000) % 60
+  console.log({ms,h,m,s})
+  return [h, m, s].map(v => v.toString().padStart(2, 0) ).join(':')
