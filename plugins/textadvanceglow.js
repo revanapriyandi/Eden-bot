@@ -12,7 +12,6 @@ let handler = async(m, { conn, text }) => {
             .catch(reject)
     })
 
-    conn.sendFile(m.chat, link, 'Nih bro')
 }
 handler.help = ['textadvancedglow', 'advancedglow'].map(v => v + ' <teks>')
 handler.tags = ['tools']
