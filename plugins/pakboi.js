@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-let handler = async(m, { conn, text }) => {
+let handler = async(m, { conn }) => {
     new Promise((resolve, reject) => {
         axios.get(`https://api.i-tech.id/tools/pantun?key=selVHB-QcNIs3-DS6jjp-8BPCH9-IJIlhH`)
             .then((res) => {
