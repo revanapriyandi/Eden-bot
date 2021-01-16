@@ -1,9 +1,8 @@
 let handler = async(m, { conn, text }) => {
-    const pesan = text
-    if (pesan.length > 300) return conn.reply(m.chat, 'Maaf Teks Terlalu Panjang, Maksimal 300 Teks', m)
+    if (text > 300) return conn.reply(m.chat, 'Maaf Teks Terlalu Panjang, Maksimal 300 Teks', m)
     var nomor = m.sender
-    const teks1 = `*[REPORT]*\nNomor : @${nomor.split("@s.whatsapp.net")[0]}\nPesan : ${pesan}`
-    conn.sendMessage('6281261865875@s.whatsapp.net', teks1, m)
+    const teks1 = `*[REPORT]*\nNomor : @${nomor.split("@s.whatsapp.net")[0]}\nPesan : ${text}`
+    conn.sendMessage('6281261865875@s.whatsapp.net', teks1, MessageType.text)
     conn.reply(m.chat, 'Masalah telah di laporkan ke owner BOT, laporan palsu/main2 tidak akan ditanggapi.', m)
 }
 handler.help = ['bug <laporan>']

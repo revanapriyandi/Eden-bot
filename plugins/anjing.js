@@ -4,7 +4,7 @@ let handler = async(m, { conn }) => {
     new Promise((resolve, reject) => {
         axios.get(`https://api.i-tech.id/tools/dog?key=selVHB-QcNIs3-DS6jjp-8BPCH9-IJIlhH`)
             .then((res) => {
-                conn.sendFile(m.chat, res.data.result, 'inu', 'inu', m)
+                conn.sendFile(m.chat, res.result, 'inu', 'inu', m)
 
             })
             .catch(reject)
