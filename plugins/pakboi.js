@@ -4,7 +4,7 @@ let handler = async(m, { conn }) => {
     new Promise((resolve, reject) => {
         axios.get(`https://api.i-tech.id/tools/pantun?key=selVHB-QcNIs3-DS6jjp-8BPCH9-IJIlhH`)
             .then((res) => {
-                conn.reply(m.chat, res.data.result, m)
+                conn.reply(m.chat, res.result, m)
             })
             .catch(reject)
     })
