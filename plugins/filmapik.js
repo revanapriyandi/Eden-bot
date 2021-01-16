@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-let handler = async(m, { conn, text, usedPrefix: _p }) => {
+let handler = async(m, { conn, text, usedPrefix }) => {
     if (!text) return conn.reply(m.chat, 'Masukkan judul filmnya yang mau dicari !\n\nContoh penggunaan: ' + usedPrefix + 'filmapik lucifer', m)
     new Promise((resolve, reject) => {
         axios.get(`https://arugaz.my.id/api/media/filmapik/search?query=` + encodeURIComponent(text))

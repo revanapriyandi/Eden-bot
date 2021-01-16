@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-let handler = async(m, { conn, text, usedPrefix: _p }) => {
+let handler = async(m, { conn, text, usedPrefix }) => {
     if (text < 1) return conn.reply(m.chat, 'Masukkan nomor tujuan \n\n Contoh penggunaan : ' + usedPrefix + '8xxxxxxxx \n\n #tidak bertanggung jawab yg di spam marah :) ', m)
     new Promise((resolve, reject) => {
         axios.get(`https://arugaz.herokuapp.com/api/lirik?judul=${text}`)
