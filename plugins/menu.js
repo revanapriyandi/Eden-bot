@@ -23,13 +23,12 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
             let tags = {
                 'main': 'Main',
                 'xp': 'Exp & Limit',
-                'internet': 'Internet',
                 'sticker': 'Sticker',
                 'kerang': 'Kerang Ajaib',
                 'random': 'Random Features',
-                'primbon': 'Primbon',
                 'admin': 'Admin',
                 'group': 'Group',
+                'internet': 'Internet',
                 'downloader': 'Downloader',
                 'tools': 'Tools',
                 'game': 'Game',
@@ -64,32 +63,25 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
             let header = conn.menu.header || '╭─「 %category 」'
             let body = conn.menu.body || '│ • %cmd%islimit'
             let footer = conn.menu.footer || '╰────\n'
-            let after = conn.menu.after || conn.user.jid == global.conn.user.jid ? '' : `\nPowered by https://wa.me${global.conn.user.jid}`
-            let _text = before + '\n'
-            for (let tag in groups) {
-                _text += header.replace(/%category/g, tags[tag]) + '\n'
-                for (let menu of groups[tag]) {
-                    for (let help of menu.help)
-                        _text += body.replace(/%cmd/g, menu.prefix ? help : '%p' + help).replace(/%islimit/g, menu.limit ? ' (Limit)' : '') + '\n'
-                }
-                _text += footer + '\n'
-            }
-            _text += after
-            text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
-            let replace = {
-                '%': '%',
-                p: _p,
-                uptime,
-                exp,
-                limit,
-                name,
-                weton,
-                week,
-                date,
-                time,
-                readmore: readMore
-            }
-            text = text.replace(new RegExp(`%(${Object.keys(replace).join`|`})`, 'g'), (_, name) => replace[name])
+            let after = conn.menu.after || conn.user.jid == global.conn.user.jid ? '' : `\nPowered by https://wa.me/${global.conn.user.jid.split`@`[0]}`
+    let _text  = before + '\n'
+    for (let tag in groups) {
+      _text += header.replace(/%category/g, tags[tag]) + '\n'
+      for (let menu of groups[tag]) {
+        for (let help of menu.help)
+          _text += body.replace(/%cmd/g, menu.prefix ? help : '%p' + help).replace(/%islimit/g, menu.limit ? ' (Limit)' : '')  + '\n'
+      }
+      _text += footer + '\n'
+    }
+    _text += after
+    text =  typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
+    let replace = {
+      '%': '%',
+      p: _p, uptime,
+      exp, limit, name, weton, week, date, time,
+      readmore: readMore
+    }
+    text = text.replace(new RegExp(`%(${Object.keys(replace).join`|`})`, 'g'), (_, name) => replace[name])
     conn.reply(m.chat, text.trim(), m)
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
@@ -109,6 +101,7 @@ handler.admin = false
 handler.botAdmin = false
 
 handler.fail = null
+handler.exp = 3
 
 module.exports = handler
 
@@ -116,9 +109,9 @@ const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 
 function clockString(ms) {
-    let h = Math.floor(ms / 3600000)
-    let m = Math.floor(ms / 60000) % 60
-    let s = Math.floor(ms / 1000) % 60
-    console.log({ ms, h, m, s })
-    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
+  let h = Math.floor(ms / 3600000)
+  let m = Math.floor(ms / 60000) % 60
+  let s = Math.floor(ms / 1000) % 60
+  console.log({ms,h,m,s})
+  return [h, m, s].map(v => v.toString().padStart(2, 0) ).join(':')
 }

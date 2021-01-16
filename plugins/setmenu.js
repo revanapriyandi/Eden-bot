@@ -1,5 +1,5 @@
-let handler = async(m, { conn, usedPrefix, text }) => {
-    let type = usedPrefix.replace(/^set(menu|help|\?)/, '').toLowerCase()
+let handler = async(m, { conn, command, text }) => {
+    let type = command.replace(/^set(menu|help|\?)/, '').toLowerCase()
     if (type == '') {
         if (text) {
             conn.menu = text
@@ -51,5 +51,5 @@ Bagian Menu Header & Footer:
 %category (Kategori)
 Bagian Menu Body:
 %cmd (Command)
-%isLimit (Jika command di limit)
+%islimit (Jika command di limit)
 `.trim()

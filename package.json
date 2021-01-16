@@ -33,6 +33,7 @@
         "nodejs": "0.0.0",
         "qrcode": "^1.4.4",
         "syntax-error": "^1.4.0",
-        "yargs": "^16.2.0"
+        "yargs": "^16.2.0",
+        "node-gtts": "^2.0.2"
     }
 }

@@ -75,9 +75,16 @@ conn.handler = async function(m) {
                 limit: 10,
                 lastclaim: 0,
             }
+            if (global.DATABASE._data.chats[m.chat]) {
+                if (!'isBanned' in global.DATABASE._data.chats[m.chat])
+                    global.DATABASE._data.chats[m.chat].isBanned = false
+            } else global.DATABASE._data.chats[m.chat] = {
+                isBanned: false
+            }
         } catch (e) {
             console.log(e, global.DATABASE.data)
         }
+
         let usedPrefix
         for (let name in global.plugins) {
             let plugin = global.plugins[name]
@@ -103,9 +110,13 @@ conn.handler = async function(m) {
                 let bot = m.isGroup ? participants.find(u => u.jid == this.user.jid) : {}
                 let isAdmin = user.isAdmin || user.isSuperAdmin || false
                 let isBotAdmin = bot.isAdmin || bot.isSuperAdmin || false
-                if (plugin.before) plugin.before({
-                    usedPrefix
-                })
+                if (m.chat in global.DATABASE._data.chats) {
+                    let chat = global.DATABASE._data.chats[m.chat]
+                    if (name != 'unbanchat.js' && chat && chat.isBanned) return
+                }
+                if (plugin.before && plugin.before({
+                        usedPrefix
+                    })) return
                 let fail = plugin.fail || global.dfail
                 if (plugin.owner && !isOwner) {
                     fail('owner', m, this)
@@ -135,7 +146,7 @@ conn.handler = async function(m) {
                 }
 
                 m.isCommand = true
-                m.exp += 'exp' in plugin ? parseInt(plugin.exp) : 10
+                m.exp += 'exp' in plugin ? parseInt(plugin.exp) : 9
                 if (!isPrems && global.DATABASE._data.users[m.sender].limit < 1 && plugin.limit) {
                     this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
                     continue
