@@ -1,6 +1,6 @@
 let fetch = require('node-fetch')
 
-let handler = async(m, { conn, text, usedPrefix: _p }) => {
+let handler = async(m, { conn, text, usedPrefix }) => {
     if (!text) return conn.reply(m.chat, 'Contoh penggunaan: ' + usedPrefix + 'chord perfect', m)
     fetch('https://alfians-api.herokuapp.com/api/chord?q=' + text)
         .then(res => res.json())
