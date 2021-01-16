@@ -1,3 +1,5 @@
+const { MessageType } = require('@adiwajshing/baileys')
+
 let handler = async(m, { conn, text }) => {
     if (text > 300) return conn.reply(m.chat, 'Maaf Teks Terlalu Panjang, Maksimal 300 Teks', m)
     var nomor = m.sender
