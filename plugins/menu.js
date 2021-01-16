@@ -24,7 +24,8 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
                 'main': 'Main',
                 'xp': 'Exp & Limit',
                 'sticker': 'Sticker',
-                'kerang': 'Kerang Ajaib',
+                'music': 'Music',
+                'primbon': 'Primbon',
                 'random': 'Random Features',
                 'wallpaper': 'Wallpaper',
                 'admin': 'Admin',
@@ -60,7 +61,7 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
                         if (menu.help) groups[tag].push(menu)
             }
             conn.menu = conn.menu ? conn.menu : {}
-            let before = conn.menu.before || `${conn.getName(conn.user.jid)} • Bot\n\nHai, %name!\n*%exp XP*\n*%limit Limit*\n*%week %weton, %date*\n*%time*\n_Uptime: %uptime_\n%readmore`
+            let before = conn.menu.before || `${conn.getName(conn.user.jid)} • Bot\n\nHai, %name!\n*%exp XP*\n*%limit Limit*\n*%week %weton, %date*\n*%time*\n_Uptime: %uptime_\n%readmore \n*kalau ada error harap lansung lapor dg !bug <masalahnya>* \n`
             let header = conn.menu.header || '╭─「 %category 」'
             let body = conn.menu.body || '│ • %cmd%islimit'
             let footer = conn.menu.footer || '╰────\n'

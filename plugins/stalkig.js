@@ -5,9 +5,9 @@ let handler = async(m, { conn, text, usedPrefix: _p }) => {
     new Promise((resolve, reject) => {
         axios.get(`https://arugaz.my.id/api/media/stalkig?user=@` + text)
             .then((res) => {
-                const teks = `➸ *Nama* : ${res.data.result.full_name}\n➸ *Username* : ${res.data.result.username}\n➸ *Jumlah Followers* : ${res.data.result.edge_followed_by.count}\n➸ *Jumlah Following* : ${res.data.result.edge_follow.count}\n➸ *Jumlah Postingan* : ${res.data.result.edge_owner_to_timeline_media.count}\n➸ *Biodata* : ${res.data.result.biography}`
+                const teks = `➸ *Nama* : ${res.data.result.full_name}\n➸ *Username* : ${res.data.result.username}\n➸ *Jumlah Followers* : ${res.data.result.followers}\n➸ *Jumlah Following* : ${res.data.result.followings}\n➸ *Biodata* : ${res.data.result.biography} ${res.data.result.external_url}`
 
-                conn.sendFile(m.chat, res.data.result.profile_pic_url_hd, 'Stalk Ig', teks, m)
+                conn.sendFile(m.chat, res.data.result.profile_picture, 'Stalk Ig', teks, m)
 
             })
             .catch(reject)
