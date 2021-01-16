@@ -26,6 +26,7 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
                 'sticker': 'Sticker',
                 'kerang': 'Kerang Ajaib',
                 'random': 'Random Features',
+                'wallpaper': 'Wallpaper',
                 'admin': 'Admin',
                 'group': 'Group',
                 'internet': 'Internet',

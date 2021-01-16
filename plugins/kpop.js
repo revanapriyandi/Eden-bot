@@ -21,7 +21,7 @@ let handler = async(m, { conn, args, usedPrefix }) => {
 }
 
 handler.help = ['kpop'].map(v => v + ' <query>')
-handler.tags = ['internet']
+handler.tags = ['wallpaper']
 handler.command = /^(kpop)$/i
 handler.owner = false
 handler.mods = false
