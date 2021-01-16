@@ -1,13 +1,13 @@
 const axios = require('axios')
 
 let handler = async(m, { conn, text, usedPrefix: _p }) => {
-    if (!text) return conn.reply(m.chat, 'Masukkan judul filmnya yang mau dicari !\n\nContoh penggunaan: ' + usedPrefix + 'filmapik lucifer', m)
+    if (!text) return conn.reply(m.chat, 'Masukkan yang mau dicari !\n\nContoh penggunaan: ' + usedPrefix + 'jotaku tensura', m)
     new Promise((resolve, reject) => {
-        axios.get(`https://arugaz.my.id/api/media/filmapik/search?query=` + encodeURIComponent(text))
+        axios.get(`https://api.i-tech.id/anim/otaku?key=selVHB-QcNIs3-DS6jjp-8BPCH9-IJIlhH&type=search&query=` + encodeURIComponent(text))
             .then((res) => {
                 this.data = res.data.result;
                 this.data.forEach(function(x) {
-                    conn.sendFile(m.chat, x.thumb, 'text', `➸ *Title* : ${x.title}\n\n➸ *Quality* : ${x.quality}\n\n➸ *Rating* : ${x.rating}\n\n➸ *Link* : ${x.link}`, m)
+                    conn.sendFile(m.chat, x.img, 'text', `➸ *Title* : ${x.title}\n\n➸ *Kategori* : ${x.category}\n\n➸ *Date* : ${x.date}\n\n➸ *Link* : ${x.link}`, m)
                 })
 
             })
@@ -16,9 +16,9 @@ let handler = async(m, { conn, text, usedPrefix: _p }) => {
 
 }
 
-handler.help = ['filmapik', 'fapik'].map(v => v + ' <query>')
+handler.help = ['jurnalotaku', 'jotaku'].map(v => v + ' <search>')
 handler.tags = ['internet']
-handler.command = /^(filmapik|fapik)$/i
+handler.command = /^(jurnalotaku|jotaku|\?)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false
