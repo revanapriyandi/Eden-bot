@@ -19,11 +19,11 @@ handler.command = /^pakboi?$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false
-handler.group = true
+handler.group = false
 handler.private = false
 
 handler.admin = false
-handler.botAdmin = true
+handler.botAdmin = false
 
 handler.fail = null
 
