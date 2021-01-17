@@ -146,7 +146,9 @@ conn.handler = async function(m) {
                 }
 
                 m.isCommand = true
-                m.exp += 'exp' in plugin ? parseInt(plugin.exp) : 9
+                let xp = 'exp' in plugin ? parseInt(plugin.exp) : 9
+                if (xp > 99) m.reply('Ngecit -_-')
+                else m.exp += xp
                 if (!isPrems && global.DATABASE._data.users[m.sender].limit < 1 && plugin.limit) {
                     this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
                     continue
@@ -231,7 +233,7 @@ for (let filename in global.plugins) {
     }
 }
 console.log(global.plugins)
-fs.watch(path.join(__dirname, 'plugins'), (event, filename) => {
+global.reload = (event, filename) => {
     if (pluginFilter(filename)) {
         let dir = './plugins/' + filename
         if (require.resolve(dir) in require.cache) {
@@ -250,6 +252,8 @@ fs.watch(path.join(__dirname, 'plugins'), (event, filename) => {
             conn.logger.error(e)
         }
     }
-})
+}
+Object.freeze(global.reload)
+fs.watch(path.join(__dirname, 'plugins'), global.reload)
 
 process.on('exit', () => global.DATABASE.save())
