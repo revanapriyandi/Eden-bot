@@ -8,7 +8,6 @@ let handler = async(m, { conn, text, usedPrefix }) => {
     if (Number(tanya[tanya.length - 1])) {
         tanya
     }
-    conn.reply(m.chat, `➸ *Pertanyaan* : ${tanya.split('.')[0]}\n\n➸ *Jumlah jawaban* : ${Number(jum)}`, m)
     await BrainlySearch(tanya.split('.')[0], Number(jum), function(res) {
         res.forEach(x => {
             if (x.jawaban.fotoJawaban.length == 0) {
