@@ -31,7 +31,7 @@
       "lastclaim": 0
     },
     "6287779760630@s.whatsapp.net": {
-      "exp": 1098,
+      "exp": 1510,
       "limit": 10,
       "lastclaim": 0
     },
@@ -116,8 +116,8 @@
       "lastclaim": 0
     },
     "6281261865875@s.whatsapp.net": {
-      "exp": 100065,
-      "limit": 994,
+      "exp": 100066,
+      "limit": 993,
       "lastclaim": 0
     },
     "6281387182212@s.whatsapp.net": {
@@ -566,12 +566,27 @@
       "lastclaim": 0
     },
     "6281259691780@s.whatsapp.net": {
-      "exp": 1,
+      "exp": 4,
       "limit": 10,
       "lastclaim": 0
     },
     "628817548037@s.whatsapp.net": {
       "exp": 4,
+      "limit": 10,
+      "lastclaim": 0
+    },
+    "6283837510649@s.whatsapp.net": {
+      "exp": 0,
+      "limit": 10,
+      "lastclaim": 0
+    },
+    "6283112071368@s.whatsapp.net": {
+      "exp": 11,
+      "limit": 10,
+      "lastclaim": 0
+    },
+    "6283177178594@s.whatsapp.net": {
+      "exp": 1,
       "limit": 10,
       "lastclaim": 0
     }

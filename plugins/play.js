@@ -4,14 +4,14 @@ let handler = async(m, { conn, args, usedPrefix }) => {
     if (args.length == 0) return conn.reply(m.chat, `Untuk mencari lagu dari youtube\n\nPenggunaan: ${usedPrefix}play judul lagu`, m)
     axios.get(`https://arugaytdl.herokuapp.com/search?q=${args}`)
         .then(async(res) => {
-            await conn.sendFile(m.chat, `${res.data[0].thumbnail}`, ``, `Lagu ditemukan\n\nJudul: ${res.data[0].title}\nDurasi: ${res.data[0].duration}detik\nUploaded: ${res.data[0].uploadDate}\nView: ${res.data[0].viewCount}\n\nsedang dikirim`, m)
+            await conn.sendFile(m.chat, `${res.data[0].thumbnail}`, ``, `Lagu ditemukan\n\nJudul: ${res.data[0].title}\nDurasi: ${res.data[0].duration}detik\nUploaded: ${res.data[0].uploadDate}\nView: ${res.data[0].viewCount}\n\nsedang diproses`, m)
             await ytmp3(`https://youtu.be/${res.data[0].id}`)
                 .then(async(mus) => {
                     await conn.reply(m.chat, `Sabar lagi dikirim~`)
                     await conn.sendFile(m.chat, `${mus.getAudio}`, '', '', m)
-                        .catch(() => {
-                            conn.reply(m.chat, `URL Ini ${args[0]} Sudah pernah di Download sebelumnya. URL akan di Reset setelah 1 Jam/60 Menit`, m)
-                        })
+                        // .catch(() => {
+                        //     conn.reply(m.chat, `URL Ini ${args[0]} Sudah pernah di Download sebelumnya. URL akan di Reset setelah 1 Jam/60 Menit`, m)
+                        // })
                 })
         })
         .catch(() => {
