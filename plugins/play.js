@@ -41,7 +41,7 @@ module.exports = handler
 
 function ytmp3(url) {
     new Promise((resolve, reject) => {
-        axios.get(`https://arugaz.herokuapp.com/api/ytv?url=${url}`)
+        axios.get(`https://arugaz.my.id/api/media/ytmus?url=${url}`)
             .then((res) => {
                 resolve(res.data)
             })
