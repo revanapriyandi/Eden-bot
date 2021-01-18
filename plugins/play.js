@@ -5,18 +5,17 @@ let handler = async(m, { conn, args, usedPrefix }) => {
     axios.get(`https://arugaytdl.herokuapp.com/search?q=${args}`)
         .then(async(res) => {
             await conn.sendFile(m.chat, `${res.data[0].thumbnail}`, ``, `Lagu ditemukan\n\nJudul: ${res.data[0].title}\nDurasi: ${res.data[0].duration}detik\nUploaded: ${res.data[0].uploadDate}\nView: ${res.data[0].viewCount}\n\nsedang dikirim`, m)
-            ytmp3(`https://youtu.be/${res.data[0].id}`)
-                .then(async(res) => {
-                    if (res.status == 'error') return conn.sendFile(m.chat, `${res.link}`, '', `${res.error}`)
-                    await conn.sendFile(m.chat, `${res.thumb}`, '', `Lagu ditemukan\n\nJudul ${res.title}\n\nSabar lagi dikirim`, m)
-                    await conn.sendFileFromUrl(m.chat, `${res.link}`, '', '', m)
+            await ytmp3(`https://youtu.be/${res.data[0].id}`)
+                .then(async(mus) => {
+                    await conn.reply(m.chat, `Sabar lagi dikirim~`)
+                    await conn.sendFile(m.chat, `${mus.getAudio}`, '', '', m)
                         .catch(() => {
                             conn.reply(m.chat, `URL Ini ${args[0]} Sudah pernah di Download sebelumnya. URL akan di Reset setelah 1 Jam/60 Menit`, m)
                         })
                 })
         })
         .catch(() => {
-            conn.reply(m.msg, 'Ada yang Error!', m)
+            conn.reply(m.chat, 'Ada yang Error!', m)
         })
 
 }
@@ -40,7 +39,7 @@ handler.limit = true
 module.exports = handler
 
 function ytmp3(url) {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         axios.get(`https://arugaz.my.id/api/media/ytmus?url=${url}`)
             .then((res) => {
                 resolve(res.data)
