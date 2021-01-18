@@ -3,7 +3,6 @@ const axios = require('axios')
 let handler = async(m, { conn, text }) => {
     let [link, resolusi] = text.split `|`
     if (!link) return conn.reply(m.chat, 'Uhm... urlnya mana?', m)
-    if (!link.includes('watch')) return conn.reply(m.chat, 'Url tidak dapat digunakan ', m)
 
     if (!resolusi) return conn.reply(m.chat, 'Harap memasukkan resolusi hd/sd !', m)
 

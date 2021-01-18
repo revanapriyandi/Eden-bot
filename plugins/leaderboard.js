@@ -1,8 +1,8 @@
-let handler = async (m, { conn, args }) => {
-  let sorted = Object.entries(global.DATABASE.data.users).sort((a, b) => b[1].exp - a[1].exp)
-  let users = sorted.map(v => v[0])
-  let len = args[0] && args[0].length > 0 ? Math.min(1000, Math.max(parseInt(args[0]), 5)) : Math.min(100, sorted.length)
-  let text = `
+let handler = async(m, { conn, args }) => {
+        let sorted = Object.entries(global.DATABASE.data.users).sort((a, b) => b[1].exp - a[1].exp)
+        let users = sorted.map(v => v[0])
+        let len = args[0] && args[0].length > 0 ? Math.min(1000, Math.max(parseInt(args[0]), 5)) : Math.min(100, sorted.length)
+        let text = `
 • *Leaderboard Top ${len}* •
 Kamu: *${users.indexOf(m.sender) + 1}* dari *${users.length}*
 
@@ -30,4 +30,3 @@ handler.fail = null
 handler.exp = 0
 
 module.exports = handler
-

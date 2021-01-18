@@ -66,13 +66,13 @@ conn.handler = async function(m) {
                 else global.DATABASE._data.users[m.sender].exp = 0
                 if (typeof global.DATABASE._data.users[m.sender].limit != 'number' ||
                     isNaN(global.DATABASE._data.users[m.sender].limit)
-                ) global.DATABASE._data.users[m.sender].limit = 10
+                ) global.DATABASE._data.users[m.sender].limit = 5
                 if (typeof global.DATABASE._data.users[m.sender].lastclaim != 'number' ||
                     isNaN(global.DATABASE._data.users[m.sender].lastclaim)
                 ) global.DATABASE._data.users[m.sender].lastclaim = 0
             } else global.DATABASE._data.users[m.sender] = {
                 exp: 0,
-                limit: 10,
+                limit: 5,
                 lastclaim: 0,
             }
             if (global.DATABASE._data.chats[m.chat]) {
@@ -147,7 +147,7 @@ conn.handler = async function(m) {
 
                 m.isCommand = true
                 let xp = 'exp' in plugin ? parseInt(plugin.exp) : 9
-                if (xp > 99) m.reply('Ngecit -_-')
+                if (xp > 5000) m.reply(m.chat, 'Ngecit -_-', m)
                 else m.exp += xp
                 if (!isPrems && global.DATABASE._data.users[m.sender].limit < 1 && plugin.limit) {
                     this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
