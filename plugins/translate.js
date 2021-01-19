@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-let handler = async(m, { conn, text, usedPrefix: _p }) => {
+let handler = async(m, { conn, text, usedPrefix }) => {
 
     if (!text) return conn.reply(m.chat, 'Contoh penggunaan: ' + usedPrefix + 'ts id | my name is eden', m)
 

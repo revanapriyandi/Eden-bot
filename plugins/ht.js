@@ -5,7 +5,7 @@ let handler = async(m, { conn, text }) => {
     m.reply('_Sedang membuat..._\n*Mohon tunggu sekitar 1 menit*')
     try {
         let img = await ht(text ? text : ':v')
-        conn.sendFile(m.chat, img, 'Harta Tahta.png', '', m)
+        conn.sendFile(m.chat, img, 'Harta Tahta.png', '*© Nurutomo*\nMade with FFmpeg', m)
     } finally {
         delete conn.hartatahta[m.chat]
     }
@@ -94,7 +94,7 @@ function formula(_var, freq, offset, amp, add) {
 }
 
 function textArgs(text, background, color, size, fontfile, x = '200', y = '200', w = 1024, h = 1024) {
-    return `color=${background}:s=${w}x${h},drawtext=text='${text}':fontfile='${fontfile}':x=${x}:y=${y}:fontsize=${size}:fontcolor=${color}`
+    return `color=${background}:s=${w}x${h},drawtext=text='${text.replace(/[\\]/g, '\\$&')}':fontfile='${fontfile.replace(/[\\]/g, '\\$&')}':x=${x}:y=${y}:fontsize=${size}:fontcolor=${color}`
 }
 
 function pickRandom(list) {

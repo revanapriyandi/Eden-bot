@@ -1,12 +1,17 @@
 const axios = require('axios')
 
 let handler = async(m, { conn, text, usedPrefix }) => {
-    if (text < 1) return conn.reply(m.chat, 'Masukkan nomor tujuan \n\n Contoh penggunaan : ' + usedPrefix + '8xxxxxxxx \n\n #tidak bertanggung jawab yg di spam marah :) ', m)
+    if (!text) return conn.reply(m.chat, 'Masukkan nomor tujuan \n\n Contoh penggunaan : ' + usedPrefix + '8xxxxxxxx \n\n #tidak bertanggung jawab yg di spam marah :) ', m)
     new Promise((resolve, reject) => {
-        axios.get(`https://arugaz.herokuapp.com/api/lirik?judul=${text}`)
+        axios.get(`http://alfians-api.herokuapp.com/api/spamcall?no=${text}`)
             .then((res) => {
-                conn.reply(m.chat, res.msg, m)
-                conn.reply(m.chat, '#tidak bertanggung jawab yg di spam marah :)', m)
+                if (res.status == 200) {
+                    conn.reply(m.chat, res.logs, m)
+                    conn.reply(m.chat, '#tidak bertanggung jawab yg di spam marah :)', m)
+                } else {
+                    conn.reply(m.chat, res.msg, m)
+                }
+
             })
             .catch(reject)
     })

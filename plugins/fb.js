@@ -8,23 +8,25 @@ let handler = async(m, { conn, text }) => {
 
     conn.reply(m.chat, 'Tunggu bentar ya :), tergantung durasinya om :)', m)
     new Promise((resolve, reject) => {
-        axios.get(`https://arugaz.my.id/api/media/facebook?url=` + link)
+        axios.get(`https://mnazria.herokuapp.com/api/fbdownloadervideo?url=` + encodeURIComponent(link))
             .then((res) => {
                 if (resolusi == 'hd') {
-                    dl_link = res.data.result.linkHD
+                    dl_link = res.data.resultHD
                 } else {
-                    dl_link = res.data.result.linkSD
+                    dl_link = res.data.resultSD
                 }
-                // conn.reply(m.chat, `*Link:* ${dl_link} `, m)
+                conn.reply(m.chat, `*Link:* ${dl_link} \n\nfile akan segera dikirim !`, m)
                 conn.sendFile(m.chat, dl_link, 'video.mp4', `Nih om :3\n\n\n*Link:* ${dl_link}`, m)
 
             })
-            .catch(reject)
+            .catch(reject => {
+                conn.reply(m.chat, 'NoneType object has no attribute group', m)
+            })
     })
 
 }
 
-handler.help = ['fb <url>|<hd/sd>']
+handler.help = ['fb <hd/sd>|<url>']
 handler.tags = ['downloader']
 handler.command = /^fb$/i
 handler.owner = false

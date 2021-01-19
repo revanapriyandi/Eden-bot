@@ -147,12 +147,12 @@ conn.handler = async function(m) {
 
                 m.isCommand = true
                 let xp = 'exp' in plugin ? parseInt(plugin.exp) : 9
-                if (xp > 10000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 10000 xp')
-                if (xp > 20000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 20000 xp')
-                if (xp > 50000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 50000 xp')
-                if (xp > 100000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 100000 xp')
-                if (xp > 500000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 500000 xp')
-                if (xp > 1000000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 1000000 xp')
+                if (xp >= 10000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 10000 xp')
+                if (xp >= 20000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 20000 xp')
+                if (xp >= 50000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 50000 xp')
+                if (xp >= 100000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 100000 xp')
+                if (xp >= 500000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 500000 xp')
+                if (xp >= 1000000) m.reply(m.chat, '!bc Selamat seorang Ranker berhasil mencapai 1000000 xp')
                 else m.exp += xp
                 if (!isPrems && global.DATABASE._data.users[m.sender].limit < 1 && plugin.limit) {
                     this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
