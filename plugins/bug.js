@@ -8,9 +8,9 @@ let handler = async(m, { conn, text }) => {
     conn.sendMessage('6281261865875@s.whatsapp.net', teks1, MessageType.text)
     conn.reply(m.chat, 'Masalah telah di laporkan ke owner BOT, laporan palsu/main2 tidak akan ditanggapi.', m)
 }
-handler.help = ['bug <laporan>']
+handler.help = ['bug <laporan>', 'report <laporan>']
 handler.tags = ['info']
-handler.command = /^bug?$/i
+handler.command = /^(bug|report)?$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false
