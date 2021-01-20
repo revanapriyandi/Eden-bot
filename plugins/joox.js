@@ -1,5 +1,6 @@
 const axios = require('axios')
-
+const { MessageType } = require('@adiwajshing/baileys')
+const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
 let handler = async(m, { conn, text, usedPrefix }) => {
     if (!text) return conn.reply(m.chat, 'Masukkan judul lagi !\n\nContoh penggunaan: ' + usedPrefix + 'joox perfect', m)
     axios.get(`https://mnazria.herokuapp.com/api/jooxnich?search=` + text)

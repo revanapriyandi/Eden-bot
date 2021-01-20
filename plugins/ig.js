@@ -7,11 +7,8 @@ let handler = async(m, { conn, text }) => {
     new Promise((resolve, reject) => {
         axios.get(`https://arugaz.my.id/api/media/ig?url=` + text)
             .then((res) => {
-                this.data = res.data.result.medias;
-                this.data.forEach(function(x) {
-                        // conn.sendFile(m.chat, x.thumb, 'text', `➸ *Title* : ${x.title}\n\n➸ *Quality* : ${x.quality}\n\n➸ *Rating* : ${x.rating}\n\n➸ *Link* : ${x.link}`, m)
-                        conn.sendFile(m.chat, x.url, 'video.mp4', `Nih om :3\n\n\n*Link:* ${x.url}`, m)
-                    })
+                // conn.sendFile(m.chat, x.thumb, 'text', `➸ *Title* : ${x.title}\n\n➸ *Quality* : ${x.quality}\n\n➸ *Rating* : ${x.rating}\n\n➸ *Link* : ${x.link}`, m)
+                conn.sendFile(m.chat, res.data.result.medias[0].url, 'video.mp4', `Nih om :3\n\n\n*Link:* ${res.data.result.medias[0].url}`, m)
                     // conn.reply(m.chat, `*Link:* ${dl_link} `, m)
 
             })
