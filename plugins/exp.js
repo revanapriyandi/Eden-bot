@@ -1,4 +1,4 @@
-let handler = async(m, { conn, participants, text }) => {
+let handler = async(m, { conn, participants, text, usedPrefix }) => {
     if (!text) return conn.reply(m.chat, `ketik: ${usedPrefix}exp <nomor> | <jumlah>`)
 
     let [who, jumlah] = text.split `|`
