@@ -10,7 +10,7 @@ let handler = async(m, { conn, text }) => {
 }
 handler.help = ['bug <laporan>', 'report <laporan>']
 handler.tags = ['info']
-handler.command = /^(bug|report)?$/i
+handler.command = /^(bug|report)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false
