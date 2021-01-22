@@ -8,7 +8,7 @@ let handler = async(m, { conn, text, usedPrefix }) => {
         .then((res) => {
             conn.reply(m.chat, res.data.result, m)
         })
-        .catch(reject)
+        .catch()
 }
 handler.help = ['wiki <search>']
 handler.tags = ['internet']

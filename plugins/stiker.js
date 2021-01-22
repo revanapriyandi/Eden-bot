@@ -10,6 +10,7 @@ let handler = async(m, { conn, args }) => {
     const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
     const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
     const { sticker } = MessageType
+    var seconds = Math.floor(seconds % 60);
     if ((isMedia && !m.message.videoMessage || isQuotedImage) && args.length == 0) {
         const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(m).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : m
         const media = await conn.downloadAndSaveMediaMessage(encmedia)

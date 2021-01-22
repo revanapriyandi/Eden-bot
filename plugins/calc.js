@@ -30,9 +30,9 @@ let handler = async(m, { conn, text }) => {
         throw 'Format salah, hanya 0-9 dan Simbol -, +, *, /, ×, ÷, π, e, (, ) yang disupport'
     }
 }
-handler.help = ['calc <expression>', 'kalkulator <expression>', 'kal <expression>']
+handler.help = ['calc <expression>']
 handler.tags = ['tools']
-handler.command = /^(calc|calculate|kalku|kalkulator|kal)?$/i
+handler.command = /^(calc(ulat(e|or))?|kalk(ulator)?)$/i
 handler.exp = 5
 
 module.exports = handler

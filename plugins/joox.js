@@ -6,7 +6,10 @@ let handler = async(m, { conn, text, usedPrefix }) => {
     axios.get(`https://mnazria.herokuapp.com/api/jooxnich?search=` + text)
         .then((res) => {
             conn.reply(m.chat, 'Proses ini membutuhkan beberapa waktu !', m)
-            conn.sendFile(m.chat, res.data.result.mp3Url, '', '', m)
+            conn.sendFile(m.chat, res.data.result.mp3Url, res.data.result.msong + '.mp3', `
+            *Title:* ${res.data.result.msong}
+            *Filesize:* ${res.data.result.size320}
+            `.trim(), m, false, { asDocument: true })
         })
 }
 handler.help = ['joox', 'play'].map(v => v + ' <judul>')
