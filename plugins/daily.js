@@ -1,9 +1,9 @@
-let handler = async(m, { conn }) => {
-    if (new Date - global.DATABASE._data.users[m.sender].lastclaim > 86400000) {
-        conn.reply(m.chat, '+500 XP', m)
-        global.DATABASE._data.users[m.sender].exp += 50
-        global.DATABASE._data.users[m.sender].lastclaim = new Date * 1
-    } else conn.reply(m.chat, 'Anda sudah mengklaim klaim harian  hari ini', m)
+let handler = async (m, { conn }) => {
+  if (new Date - global.DATABASE._data.users[m.sender].lastclaim > 86400000) {
+    global.DATABASE._data.users[m.sender].exp += 500
+    m.reply('+500 XP')
+    global.DATABASE._data.users[m.sender].lastclaim = new Date * 1
+  } else m.reply('Anda sudah mengklaim klaim harian hari ini')
 }
 handler.help = ['daily', 'claim']
 handler.tags = ['xp']
@@ -21,3 +21,4 @@ handler.fail = null
 handler.exp = 0
 
 module.exports = handler
+

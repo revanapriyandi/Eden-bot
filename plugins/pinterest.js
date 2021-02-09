@@ -2,7 +2,7 @@ let fetch = require('node-fetch')
 const axios = require('axios')
 
 let handler = async(m, { conn, text, usedPrefix }) => {
-    axios.get(`https://api.i-tech.id/dl/pin?key=selVHB-QcNIs3-DS6jjp-8BPCH9-IJIlhH&link=` + encodeURIComponent(text))
+    axios.get(`https://api.i-tech.id/dl/pin?key=SO0MQt-hr6gOy-p3yMNu-PmmCI4-LeIw0Z&link=` + encodeURIComponent(text))
         .then((res) => {
             if (res.data.pesan) return conn.reply(m.chat, res.data.pesan, m)
                 // console.log(res.data)

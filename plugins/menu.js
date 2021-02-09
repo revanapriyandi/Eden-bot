@@ -1,73 +1,98 @@
-let handler = async(m, { conn, usedPrefix: _p }) => {
-        try {
-            let exp = global.DATABASE.data.users[m.sender].exp
-            let limit = global.DATABASE.data.users[m.sender].limit
-            let name = conn.getName(m.sender)
-            let d = new Date
-            let locale = 'id'
-            let gmt = new Date(0).getTime() - new Date('1 January 1970').getTime()
-            let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(((d * 1) + gmt) / 84600000) % 5]
-            let week = d.toLocaleDateString(locale, { weekday: 'long' })
-            let date = d.toLocaleDateString(locale, {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            })
-            let time = d.toLocaleTimeString(locale, {
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric'
-            })
-            let _uptime = process.uptime() * 1000
-            let uptime = clockString(_uptime)
-            let totalreg = Object.keys(global.DATABASE._data.users).length
-            let tags = {
-                'main': 'Main',
-                'xp': 'Exp & Limit',
-                'sticker': 'Sticker',
-                'music': 'Music',
-                'primbon': 'Primbon',
-                'kerang': 'Kerang Ajaib',
-                'random': 'Random Features',
-                'wallpaper': 'Wallpaper',
-                'admin': 'Admin',
-                'group': 'Group',
-                'internet': 'Internet',
-                'downloader': 'Downloader',
-                'tools': 'Tools',
-                'game': 'Game',
-                'jadibot': 'Jadi Bot',
-                'owner': 'Owner',
-                'host': 'Host',
-                'advanced': 'Advanced',
-                'info': 'Info',
-                '': 'No Category',
-            }
-            for (let plugin of Object.values(global.plugins))
-                if (plugin && 'tags' in plugin)
-                    for (let tag of plugin.tags)
-                        if (!tag in tags) tags[tag] = tag
-            let help = Object.values(global.plugins).map(plugin => {
-                return {
-                    help: plugin.help,
-                    tags: plugin.tags,
-                    prefix: 'customPrefix' in plugin,
-                    limit: plugin.limit
-                }
-            })
-            let groups = {}
-            for (let tag in tags) {
-                groups[tag] = []
-                for (let menu of help)
-                    if (menu.tags && menu.tags.includes(tag))
-                        if (menu.help) groups[tag].push(menu)
-            }
-            conn.menu = conn.menu ? conn.menu : {}
-            let before = conn.menu.before || `${conn.getName(conn.user.jid)} • Bot\n\nHai, %name!\n*%exp XP*\n*%limit Limit*\n*%week %weton, %date*\n*%time*\n_Uptime: %uptime_\n%totalreg User in database\n%readmore`
-            let header = conn.menu.header || '╭─「 %category 」'
-            let body = conn.menu.body || '│ • %cmd%islimit'
-            let footer = conn.menu.footer || '╰────\n'
-            let after = conn.menu.after || conn.user.jid == global.conn.user.jid ? '' : `\nPowered by https://wa.me/${global.conn.user.jid.split`@`[0]}`
+let fs = require ('fs')
+let path = require('path')
+let handler  = async (m, { conn, usedPrefix: _p }) => {
+  try {
+    let package = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')))
+    let exp = global.DATABASE.data.users[m.sender].exp
+    let limit = global.DATABASE.data.users[m.sender].limit
+    let name = conn.getName(m.sender)
+    let d = new Date
+    let locale = 'id'
+    let gmt = new Date(0).getTime() - new Date('1 January 1970').getTime()
+    let weton = ['Pahing', 'Pon','Wage','Kliwon','Legi'][Math.floor(((d * 1) + gmt) / 84600000) % 5]
+    let week = d.toLocaleDateString(locale, { weekday: 'long' })
+    let date = d.toLocaleDateString(locale, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+    let time = d.toLocaleTimeString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    })
+    let _uptime = process.uptime() * 1000
+    let _muptime
+    if (process.send) {
+      process.send('uptime')
+      _muptime = await new Promise(resolve => {
+        process.once('message', resolve)
+        setTimeout(resolve, 1000)
+      }) * 1000
+    }
+    let muptime = clockString(_muptime)
+    let uptime = clockString(_uptime)
+    let totalreg = Object.keys(global.DATABASE._data.users).length
+    let tags = {
+      'main': 'Main',
+      'xp': 'Exp & Limit',
+      'sticker': 'Sticker',
+      'kerang': 'Kerang Ajaib',
+      'quotes': 'Quotes',
+      'admin': 'Admin',
+      'group': 'Group',
+      'internet': 'Internet',
+      'downloader': 'Downloader',
+      'tools': 'Tools',
+      'fun': 'Fun',
+      'jadibot': 'Jadi Bot',
+      'owner': 'Owner',
+      'host': 'Host',
+      'advanced': 'Advanced',
+      'info': 'Info',
+      '': 'No Category',
+    }
+    for (let plugin of Object.values(global.plugins))
+      if (plugin && 'tags' in plugin)
+        for (let tag of plugin.tags)
+          if (!tag in  tags) tags[tag] = tag
+    let help = Object.values(global.plugins).map(plugin => {
+      return {
+        help: plugin.help,
+        tags: plugin.tags,
+        prefix: 'customPrefix' in plugin,
+        limit: plugin.limit
+      }
+    })
+    let groups = {}
+    for (let tag in tags) {
+      groups[tag] = []
+      for (let menu of help)
+        if (menu.tags && menu.tags.includes(tag))
+          if (menu.help) groups[tag].push(menu)
+    }
+    conn.menu = conn.menu ? conn.menu : {}
+    let before = conn.menu.before || `
+╭─「 ${conn.getName(conn.user.jid)} 」
+│ Hai, %name!
+│
+│ *%exp XP*
+│ Tersisa *%limit Limit*
+│
+│ Tanggal: *%week %weton, %date*
+│ Waktu: *%time*
+│
+│ Uptime: *%uptime*
+│ Main Uptime: *%muptime*
+│ Database: %totalreg nomor
+│ Github:
+│ %github
+╰────
+%readmore`
+    let header = conn.menu.header || '╭─「 %category 」'
+    let body   = conn.menu.body   || '│ • %cmd%islimit'
+    let footer = conn.menu.footer || '╰────\n'
+    let after  = conn.menu.after  || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + `\n*%npmname@^%version*\n\`\`\`\%npmdesc\`\`\``
     let _text  = before + '\n'
     for (let tag in groups) {
       _text += header.replace(/%category/g, tags[tag]) + '\n'
@@ -81,7 +106,11 @@ let handler = async(m, { conn, usedPrefix: _p }) => {
     text =  typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
     let replace = {
       '%': '%',
-      p: _p, uptime,
+      p: _p, uptime, muptime,
+      npmname: package.name,
+      npmdesc: package.description,
+      version: package.version,
+      github: package.homepage ? package.homepage.url || package.homepage : '[unknown github url]',
       exp, limit, name, weton, week, date, time, totalreg,
       readmore: readMore
     }
@@ -113,9 +142,8 @@ const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 
 function clockString(ms) {
-  let h = Math.floor(ms / 3600000)
-  let m = Math.floor(ms / 60000) % 60
-  let s = Math.floor(ms / 1000) % 60
-  console.log({ms,h,m,s})
+  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
+  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, m, s].map(v => v.toString().padStart(2, 0) ).join(':')
 }

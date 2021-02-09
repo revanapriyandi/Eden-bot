@@ -4,7 +4,7 @@ let handler = async(m, { conn, text }) => {
     new Promise((resolve, reject) => {
         axios.get(`https://akaneko-api.herokuapp.com/api/neko`)
             .then((res) => {
-                conn.sendFile(m.chat, res.data.url, 'image tiktok', 'Neko *Nyaa*~', m)
+                conn.sendFile(m.chat, res.data.url, 'image', 'Neko *Nyaa*~', m)
             })
             .catch(reject)
     })
